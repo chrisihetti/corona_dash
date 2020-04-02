@@ -13,7 +13,6 @@ start_date = '2000-01-01'
 end_date = '2020-04-01'
 # User pandas_reader.data.DataReader to load the desired data. As simple as that.
 panel_data = web.get_data_yahoo(tickers, start_date, end_date)
-print(panel_data.head(5))
 
 app.layout = html.Div([
     html.H1('Stock Tickers'),
@@ -32,3 +31,5 @@ app.layout = html.Div([
     )
 ]
 )
+
+print("Applicaiton Deployed")
