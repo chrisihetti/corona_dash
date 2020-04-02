@@ -1,1 +1,1 @@
-# corona_dash
+# A Corona Dashboard built on Dash
