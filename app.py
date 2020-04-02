@@ -32,5 +32,3 @@ app.layout = html.Div([
     )
 ]
 )
-
-app.run_server()
