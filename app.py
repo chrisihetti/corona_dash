@@ -2,34 +2,61 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import flask
-import pandas_datareader.data as web
+import pandas as pd
+import plotly.graph_objects as go
 
 server = flask.Flask('app')
 app = dash.Dash('app', server=server)
 
-tickers = ['AAPL', 'MSFT', '^GSPC']
-# We would like all available data from 01/01/2000 until 12/31/2016.
-start_date = '2000-01-01'
-end_date = '2020-04-01'
-# User pandas_reader.data.DataReader to load the desired data. As simple as that.
-panel_data = web.get_data_yahoo(tickers, start_date, end_date)
+colors = {
+    'background': '#111111',
+    'text': '#7FDBFF'
+}
 
-app.layout = html.Div([
-    html.H1('Stock Tickers'),
-    dcc.Graph(
-        id='example',
-        figure={
-            'data': [
-                {'x': list(panel_data["High"]["AAPL"].index.values), 'y': list(panel_data["High"]["AAPL"]), 'type': 'line', 'name': 'APPL'},
-                {'x': list(panel_data["High"]["MSFT"].index.values), 'y': list(panel_data["High"]["MSFT"]), 'type': 'line', 'name': 'MSFT'},
-                {'x': list(panel_data["High"]["^GSPC"].index.values), 'y': list(panel_data["High"]["^GSPC"]), 'type': 'line', 'name': '^GSPC'},
-            ],
-            'layout': {
-                'title': 'Basic Dash Example'
-            }
-        }
-    )
-]
+data = pd.read_csv("cleaned_data.csv")
+data['date'] = pd.to_datetime(data['date'], format='%d.%m.%Y')
+casesAusria = go.Scatter(
+
+    x=data.date,
+    y=data.cases,
+    name="Austria",
+    line=dict(color='#39ff14'),
+    opacity=0.8)
+
+data = [casesAusria]
+
+layout = dict(
+    xaxis=dict(
+        rangeselector=dict(
+            buttons=list([
+                dict(count=1,
+                     label='1m',
+                     step='month',
+                     stepmode='backward'),
+                dict(count=6,
+                     label='6m',
+                     step='month',
+                     stepmode='backward'),
+                dict(step='all')
+            ])
+        ),
+        rangeslider=dict(),
+        type='date'
+    ),
+    paper_bgcolor=colors['background'],
+    plot_bgcolor=colors['background']
 )
 
-print("Applicaiton Deployed")
+fig = dict(data=data, layout=layout)
+
+# Now here's the Dash part:
+
+app.layout = html.Div([
+    html.H1('Dash Introduction'),
+    dcc.Graph(id='my-graph', figure=fig)
+])
+
+if __name__ == '__main__':
+    app.run_server(debug=True)
+
+print("Application Deployed")
