@@ -31,6 +31,8 @@ us_actual = us_actual.dropna()
 
 us_actual.to_csv("actual_usa.csv",index = False)
 
+us_actual[us_actual["Province_State"]=="New York"]
+
 confirmed_usa = pd.read_csv(
     "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv")
 death_usa = pd.read_csv(
