@@ -43,3 +43,6 @@ confirmed_usa.to_csv("confirmed_usa.csv")
 
 death_usa = death_usa.groupby("Country_Region").sum().iloc[:, 6:].loc["US"]
 death_usa.to_csv("death_usa.csv")
+
+death_usa = death_usa.groupby("Country_Region").sum().iloc[:, 6:].loc["US"]
+death_usa.to_csv("death_usa.csv")

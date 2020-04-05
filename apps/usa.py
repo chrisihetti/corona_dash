@@ -38,11 +38,10 @@ table = dash_table.DataTable(
 with urlopen('https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json') as response:
     counties = json.load(response)
 
-actual_usa["text"] = "Confirmed : " + actual_usa["Confirmed"].astype(str) + " State: " + actual_usa[
-    "Province_State"].astype(str)
+actual_usa["text"] = "Confirmed : " + actual_usa["Confirmed"].astype(str) + " City: " + actual_usa[
+    "Admin2"].astype(str)
 map = go.Figure(go.Choroplethmapbox(geojson=counties, locations=actual_usa["FIPS"],
                                     z=actual_usa["Confirmed"], zmin=0, zmax=10000,
-
                                     colorscale='Reds', text=actual_usa["text"]))
 map.update_layout(mapbox_accesstoken=ACCESS_TOKEN, mapbox_zoom=3,
                   mapbox_center={"lat": 37.0902, "lon": -95.7129})
