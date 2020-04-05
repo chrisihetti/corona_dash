@@ -5,7 +5,6 @@ import plotly.graph_objs as go
 import pandas as pd
 import plotly.express as px
 import geopandas as gpd
-import json
 from dash.dependencies import Input, Output
 
 ACCESS_TOKEN = "pk.eyJ1IjoiaGV0dGkiLCJhIjoiY2s4bGZkdnpxMDJ2ZjNncW9pY2R6NTVqdyJ9.XbSVnMxmb86c7hADyekrWA"
@@ -14,10 +13,6 @@ europe = pd.read_csv("./data_processing/europe/data_europe.csv")
 gdf = gpd.GeoDataFrame(
     europe, geometry=gpd.points_from_xy(x=europe.Long_, y=europe.Lat)
 )
-gdf.to_file("europe.json", driver="GeoJSON")
-
-with open("europe.json") as f:
-    geojson = json.load(f)
 
 col_map_fig = go.Figure(px.scatter_mapbox(gdf, lat=gdf["Lat"], lon=gdf["Long_"],
                                           color=gdf["Confirmed"],
