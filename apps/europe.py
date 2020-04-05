@@ -90,7 +90,7 @@ layout = html.Div([
     }),
     dcc.Link('Go to Home', href='/'),
     col_map,
-    dcc.Tabs(id='tabs-example', children=[
+    dcc.Tabs(id='tabs-example', value="tab-1", children=[
         dcc.Tab(label='Confirmed', value='tab-1', style={
             'textAlign': 'center',
             'color': colors['text'],
