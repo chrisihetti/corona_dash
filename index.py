@@ -86,21 +86,20 @@ layout = html.Div(children=[
     ]),
     html.Br(),
 
-
     html.Div(children=[
-        html.Div([table], style={'width': '25%', 'display': 'inline-block',
-                                 'margin-left': '1em'}),
+        html.Div([table], style={'width': '25%', 'display': 'inline-block','float': 'left',
+                                 'margin-left': '4em'}),
         html.Div([
             html.Br(),
             html.Br(),
             html.Img(src=app.get_asset_url('home.png'), style={
                 'height': '100%',
                 'width': '100%'
-            })], style={'width': '40%', 'display': 'inline-block'
+            })], style={'width': '35%', 'display': 'inline-block'
                         }),
         html.Div([overview],
-                 style={'width': '25%', 'display': 'inline-block', 'margin-left': '4em'})
-    ]),
+                 style={'width': '25%', 'display': 'inline-block', 'float': 'right','margin-left': '4em'})
+    ], style={'width': '100%', 'display': 'inline-block'})
 ])
 
 app.layout = html.Div(style={'textAlign': 'center'},

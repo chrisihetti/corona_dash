@@ -25,7 +25,7 @@ table = dash_table.DataTable(
     sort_mode="single",
     style_header={'backgroundColor': '#121212', 'border': '1px solid white'},
     style_table={
-        "maxWidth": "300px",
+        "maxWidth": "250px",
     },
     style_data={'border': '1px solid white'},
     style_cell={
@@ -75,16 +75,19 @@ layout = html.Div([
     }),
     dcc.Link('Go to Home', href='/'),
     html.Br(),
-    html.Br(),
-    daily_trend,
-    html.Br(),
-    html.Br(),
-    table,
     dcc.Textarea(
         value=text,
         style={'width': '30%', 'color': colors['text'], 'backgroundColor': '#121212',
-               "font-size": "18px"},
+               "font-size": "18px", 'float': 'left'},
         contentEditable=False
     ),
+    html.Br(),
+    html.Br(),
+    html.Div(children=[
+        html.Div([table], style={'display': 'inline-block', 'width': '33%', 'float': 'left', 'margin-left': '4em'}),
+        html.Div([daily_trend], style={'display': 'inline-block', 'width': '60%'
+                                       })
+    ], style={'width': '100%', 'display': 'inline-block'}),
+    html.Br(),
     colorMap
 ])
