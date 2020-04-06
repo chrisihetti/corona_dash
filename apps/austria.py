@@ -26,9 +26,20 @@ col_map_fig.update_layout(mapbox_accesstoken=ACCESS_TOKEN, mapbox_zoom=5,
 col_map_fig.layout.template = "plotly_dark"
 
 col_map = dcc.Graph(
-    id='example-graph-2',
+    id='example-graph-colmap',
     figure=col_map_fig
 )
+print(gdf.columns)
+heat_fig = px.density_mapbox(gdf, lon=gdf["x"], lat=gdf["y"], z=((gdf["cases"]/gdf['Bevölkerung am 1.1.2019'])*100000), radius=15,
+                             hover_name=gdf["name"],)
+heat_fig.update_layout(mapbox_accesstoken=ACCESS_TOKEN, mapbox_zoom=5,
+                       mapbox_center={"lat": 47.5162, "lon": 14.5501})
+heat_fig.layout.template = "plotly_dark"
+heat_map = dcc.Graph(
+    id='example-graph-heat',
+    figure=heat_fig
+)
+
 fig = go.Figure()
 fig.layout.template = "plotly_dark"
 fig.add_trace(
@@ -51,6 +62,20 @@ layout = html.Div([
         'color': colors['text']
     }),
     dcc.Link('Go to Home', href='/'),
+    html.H1(children="Trend", style={
+        'textAlign': 'center',
+        'color': colors['text']
+    }),
     daily_trend,
-    col_map
+    html.H1(children="Map", style={
+        'textAlign': 'center',
+        'color': colors['text']
+    }),
+    col_map,
+    html.H1(children="Heatmap (auf 100.000 Einwohner)", style={
+        'textAlign': 'center',
+        'color': colors['text']
+    }),
+    heat_map
+
 ])
